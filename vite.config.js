@@ -19,8 +19,19 @@ const serveResources = () => ({
 	}
 });
 
+// Serve content/ directory for images (gallery, etc.)
+const serveContent = () => ({
+	name: 'serve-content',
+	configureServer(server) {
+		const contentDir = path.resolve(__dirname, 'content');
+		if (fs.existsSync(contentDir)) {
+			server.middlewares.use(sirv(contentDir, { dev: true }));
+		}
+	}
+});
+
 export default defineConfig({
-	plugins: [sveltekit(), serveResources()],
+	plugins: [sveltekit(), serveResources(), serveContent()],
 
 	resolve: {
 		alias: {

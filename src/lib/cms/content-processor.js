@@ -466,6 +466,81 @@ const getAllDirectoriesSidebar = async () => {
   return result;
 };
 
+// Function to check if a directory is a gallery (contains image+text pairs)
+const isGalleryDirectory = (directory) => {
+  const contentPath = path.resolve('content', directory);
+
+  if (!fs.existsSync(contentPath)) {
+    return false;
+  }
+
+  const entries = fs.readdirSync(contentPath);
+  const imageExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.webp'];
+
+  // Find image files with matching .txt files
+  let pairCount = 0;
+
+  for (const entry of entries) {
+    const ext = path.extname(entry).toLowerCase();
+    if (imageExtensions.includes(ext)) {
+      const basename = path.basename(entry, ext);
+      const txtFile = basename + '.txt';
+
+      if (entries.includes(txtFile)) {
+        pairCount++;
+      }
+    }
+  }
+
+  // Consider it a gallery if we have at least 1 image+text pair
+  return pairCount >= 1;
+};
+
+// Function to get gallery data from a directory
+const getGalleryData = (directory) => {
+  const contentPath = path.resolve('content', directory);
+  const galleryItems = [];
+
+  if (!fs.existsSync(contentPath)) {
+    return galleryItems;
+  }
+
+  const entries = fs.readdirSync(contentPath);
+  const imageExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.webp'];
+
+  // Find all image files with matching .txt files
+  for (const entry of entries) {
+    const ext = path.extname(entry).toLowerCase();
+
+    if (imageExtensions.includes(ext)) {
+      const basename = path.basename(entry, ext);
+      const txtFile = basename + '.txt';
+      const txtPath = path.join(contentPath, txtFile);
+
+      if (fs.existsSync(txtPath)) {
+        // Read and parse the text file
+        const txtContent = fs.readFileSync(txtPath, 'utf-8');
+        const lines = txtContent.split('\n').filter(line => line.trim());
+
+        const title = lines[0] || basename;
+        const caption = lines.slice(1).join('\n').trim();
+
+        // Image path should reference the content directory
+        const imageSrc = `/${directory}/${entry}`;
+
+        galleryItems.push({
+          src: imageSrc,
+          alt: title,
+          title: title,
+          caption: caption || ''
+        });
+      }
+    }
+  }
+
+  return galleryItems;
+};
+
 // Export functions
 export {
   scanContentDirectory,
@@ -478,5 +553,7 @@ export {
   getSubDirectories,
   processTemplateVariables,
   getSidebarTree,
-  getAllDirectoriesSidebar
+  getAllDirectoriesSidebar,
+  isGalleryDirectory,
+  getGalleryData
 };
