@@ -2,7 +2,7 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [main]
+    branches: [main, feature/content-grid-components]
   workflow_dispatch:
 
 permissions:
