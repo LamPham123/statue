@@ -56,16 +56,18 @@
     </button>
     <div class="lightbox-content" on:click={(e) => e.stopPropagation()}>
       <div class="image-wrapper">
-        <img {src} {alt} class="expanded-image" />
+        <img {src} {alt} class="expanded-image" style="aspect-ratio: {aspectRatio};" />
       </div>
       {#if title || caption}
-        <div class="expanded-caption">
-          {#if title}
-            <h3 class="expanded-title">{title}</h3>
-          {/if}
-          {#if caption}
-            <p class="expanded-text">{caption}</p>
-          {/if}
+        <div class="expanded-caption-card">
+          <div class="caption-content">
+            {#if title}
+              <h3 class="expanded-title">{title}</h3>
+            {/if}
+            {#if caption}
+              <p class="expanded-text">{caption}</p>
+            {/if}
+          </div>
         </div>
       {/if}
     </div>
@@ -138,7 +140,7 @@
     line-height: 1.6;
     font-weight: 400;
     display: -webkit-box;
-    -webkit-line-clamp: 3;
+    -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
@@ -174,7 +176,7 @@
     justify-content: center;
     padding: 20px;
     cursor: zoom-out;
-    animation: fadeIn 0.2s ease;
+    animation: fadeIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   @keyframes fadeIn {
@@ -182,37 +184,56 @@
     to { opacity: 1; }
   }
 
+  @keyframes scaleIn {
+    from {
+      opacity: 0;
+      transform: scale(0.9) translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+  }
+
   .lightbox-content {
     position: relative;
-    max-width: 85vw;
     cursor: default;
-    display: inline-flex;
-    flex-direction: column;
+    max-width: min(600px, 90vw);
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    border-radius: 12px;
+    background: var(--color-card);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    border: 1px solid var(--color-border);
+    animation: scaleIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
 
   .image-wrapper {
     display: flex;
     justify-content: center;
+    border-radius: 12px 12px 0 0;
     background: var(--color-card);
-    border-radius: 8px 8px 0 0;
+    overflow: hidden;
   }
 
   .expanded-image {
-    max-width: 100%;
-    max-height: 75vh;
-    width: auto;
-    height: auto;
+    width: 100%;
+    aspect-ratio: var(--aspect-ratio, 1 / 1);
     display: block;
-    border-radius: 8px 8px 0 0;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-    object-fit: contain;
+    object-fit: cover;
   }
 
-  .expanded-caption {
+  .expanded-caption-card {
+    position: relative;
     background: var(--color-card);
+    width: 100%;
+    text-align: left;
+    border-radius: 0 0 12px 12px;
+  }
+
+  .caption-content {
     padding: 20px 24px;
-    border-radius: 0 0 8px 8px;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
   }
 
   .expanded-title {
@@ -258,5 +279,33 @@
 
   .close-button svg {
     display: block;
+  }
+
+  @media (max-width: 640px) {
+    .lightbox {
+      padding: 12px;
+    }
+
+    .lightbox-content {
+      max-width: 95vw;
+    }
+
+    .caption-content {
+      padding: 16px;
+    }
+
+    .expanded-title {
+      font-size: 18px;
+    }
+
+    .expanded-text {
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .close-button {
+      top: 12px;
+      right: 12px;
+    }
   }
 </style>
