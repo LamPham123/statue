@@ -1,0 +1,53 @@
+Plain Text File Support in Statue
+
+Statue now supports native .txt files alongside .md files throughout your content directory. This feature allows you to write content in pure plain text without any markdown formatting.
+
+How It Works
+
+Place .txt files anywhere in your content/ directory, just like you would with .md files. The system automatically:
+- Generates routes based on file paths
+- Converts plain text to styled HTML paragraphs
+- Applies the appropriate layout (docs, blog, or default)
+- Includes files in directory listings
+
+File Structure
+
+Your .txt files follow the same organizational structure as markdown files:
+content/docs/guide.txt → /docs/guide
+content/blog/post.txt → /blog/post
+content/legal/terms.txt → /legal/terms
+
+Text Formatting
+
+Plain text files use a simple paragraph system. Separate paragraphs with blank lines (double newline). Single line breaks within a paragraph are preserved.
+
+No frontmatter is used - the file name becomes the page title automatically. For example, "getting-started.txt" becomes "Getting Started".
+
+Use Cases
+
+Plain text files are ideal for:
+- Technical documentation and command-line guides
+- Log files and system output examples
+- Quick notes and simple content
+- Legacy content that doesn't need markdown features
+- Content where you want to focus on writing without formatting
+
+Integration with Layouts
+
+Text files work seamlessly with all Statue layouts:
+- Docs layout: Includes sidebar navigation and table of contents area
+- Blog layout: Shows author, date, and other blog metadata
+- Default layout: Clean presentation with standard styling
+
+The content automatically inherits your site's theme and styling, so text files look consistent with the rest of your site.
+
+Technical Details
+
+Text files are processed server-side during the build. The system:
+1. Reads the raw text content
+2. Escapes HTML characters for security
+3. Splits content into paragraphs (double newline delimiter)
+4. Wraps each paragraph in proper HTML tags
+5. Applies your site's CSS theme variables
+
+This ensures text files are both safe and beautifully rendered.

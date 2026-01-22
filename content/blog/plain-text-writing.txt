@@ -1,0 +1,33 @@
+Why I Love Writing in Plain Text
+
+There's something beautifully simple about writing in plain text. No formatting toolbar, no rich text features, no distractions. Just you and your thoughts flowing onto the page.
+
+The Freedom of Simplicity
+
+When you write in plain text, you focus entirely on the content. There's no temptation to fiddle with fonts, adjust spacing, or obsess over formatting. The words matter most, and that's liberating.
+
+I've found that my writing improves when I remove the visual complexity. My thoughts flow more naturally. I spend less time editing the appearance and more time refining the message.
+
+Plain Text is Forever
+
+File formats come and go. Remember .doc files from the 90s? Try opening them now. Word processors evolve, proprietary formats become obsolete, and suddenly your carefully crafted documents are unreadable.
+
+Plain text files, though? They've been around since the dawn of computing, and they'll be readable for decades to come. A .txt file from 1980 opens perfectly today. That's the kind of longevity I want for my writing.
+
+Portability and Compatibility
+
+Plain text works everywhere. Every operating system, every device, every text editor can open and edit .txt files. You're never locked into a specific platform or tool.
+
+Want to write on your phone? Your tablet? Your laptop? Switch to Linux? All your plain text files come with you, no conversion needed, no compatibility issues, no hassle.
+
+Version Control and Collaboration
+
+If you work with version control systems like Git, plain text is perfect. You can track changes line by line, see exactly what changed between versions, and merge contributions from multiple people cleanly.
+
+Try doing that with a Word document or a PDF. Plain text makes collaboration straightforward and transparent.
+
+The Right Tool for the Job
+
+Don't get me wrong - I'm not anti-formatting. Rich text, markdown, and structured documents all have their place. But for writing, thinking, and creating first drafts, plain text is hard to beat.
+
+It removes barriers between you and your words. And sometimes, that's exactly what you need.

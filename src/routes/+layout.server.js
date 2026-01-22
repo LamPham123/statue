@@ -1,4 +1,4 @@
-import { getContentDirectories, getContentByDirectory } from 'statue-ssg/cms/content-processor';
+import { getContentDirectories, getContentByDirectory, getRootLevelContent } from 'statue-ssg/cms/content-processor';
 import { siteConfig } from '../../site.config.js';
 
 /** @type {import('./$types').LayoutServerLoad} */
@@ -26,8 +26,12 @@ export async function load() {
     })
   );
 
+  // Get root-level content files
+  const rootContent = getRootLevelContent();
+
   return {
     globalDirectories: enhancedDirectories,
+    rootContent: rootContent,
     searchConfig: siteConfig.search || null,
     navbarConfig: siteConfig.navbar || null
   };

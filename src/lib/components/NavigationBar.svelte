@@ -4,6 +4,7 @@
   import Search from './Search.svelte';
 
   export let navbarItems = [];
+  export let rootContent = [];
   export let activePath = '';
   export let showSearch = false;
   export let searchPlaceholder = "Search...";
@@ -101,6 +102,15 @@
           {/if}
         {/each}
 
+        {#each rootContent as item}
+          <a
+            href={item.url}
+            class="py-2 px-3 font-medium text-sm transition-colors duration-200 {isActive(item.url, currentPath) ? 'text-[var(--color-primary)]' : 'text-[var(--color-foreground)] hover:text-[var(--color-primary)]'}"
+          >
+            {item.title}
+          </a>
+        {/each}
+
         {#each filteredNavbarItems as item}
           {#if !item.cta}
             <a
@@ -163,6 +173,15 @@
               {item.title}
             </a>
           {/if}
+        {/each}
+
+        {#each rootContent as item}
+          <a
+            href={item.url}
+            class="block px-3 py-2 rounded-md text-base font-medium {isActive(item.url, currentPath) ? 'bg-surface text-white' : 'text-[var(--color-muted)] hover:bg-surface hover:text-white'}"
+          >
+            {item.title}
+          </a>
         {/each}
 
         {#each filteredNavbarItems as item}

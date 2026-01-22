@@ -1,0 +1,9 @@
+This is a plain text blog post with an image!
+
+Here's a beautiful image:
+
+![Blog Thumbnail](/blog_thumbnail1.jpg)
+
+And here's more text after the image. You can also add links like this: [Visit Example](https://example.com)
+
+This is a second paragraph with some more content. 

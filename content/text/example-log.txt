@@ -1,0 +1,37 @@
+System Log Example
+
+This is an example of how plain text files can be used to display log-style content or technical output.
+
+Application Startup
+===================
+
+[2025-01-21 10:30:15] INFO: Starting Statue SSG build process
+[2025-01-21 10:30:15] INFO: Loading configuration from site.config.js
+[2025-01-21 10:30:15] INFO: Scanning content directory...
+[2025-01-21 10:30:16] INFO: Found 47 content files (.md and .txt)
+[2025-01-21 10:30:16] INFO: Processing markdown files with mdsvex
+[2025-01-21 10:30:16] INFO: Processing plain text files
+[2025-01-21 10:30:17] INFO: Generating routes and pages
+[2025-01-21 10:30:18] INFO: Building static assets
+[2025-01-21 10:30:20] SUCCESS: Build completed in 5.2 seconds
+
+Build Summary
+=============
+
+Total pages: 47
+Markdown pages: 39
+Plain text pages: 8
+Static assets: 156
+Total build size: 2.4 MB
+
+Output directory: ./build/
+
+Next Steps
+==========
+
+Your site is ready to deploy! You can:
+- Test locally with: npm run preview
+- Deploy to Netlify, Vercel, or Cloudflare Pages
+- Serve from any static hosting service
+
+The build/ directory contains all the files needed for deployment.

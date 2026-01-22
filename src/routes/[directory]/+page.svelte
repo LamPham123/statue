@@ -7,26 +7,35 @@
 		DocsDirectoryList,
 		BlogLayout,
 		ContentGrid,
-		CaptionedGridElement
+		CaptionedGridElement,
+		ContentHeader,
+		ContentBody,
+		BlogPostLayout
 	} from 'statue-ssg';
 
 	const { data } = $props();
 
-	const isDocsDirectory = $derived(data.currentDirectory.name === 'docs');
-	const isBlogDirectory = $derived(data.currentDirectory.name === 'blog');
-	const isGallery = $derived(data.isGallery);
+	// Check if this page has a naming conflict
+	const hasNamingConflict = $derived(!!data.hasNamingConflict);
+
+	// Check if this is actually a content page (not a directory)
+	const isContentPage = $derived(!!data.content);
+
+	const isDocsDirectory = $derived(!isContentPage && data.currentDirectory?.name === 'docs');
+	const isBlogDirectory = $derived(!isContentPage && data.currentDirectory?.name === 'blog');
+	const isGallery = $derived(!isContentPage && data.isGallery);
 
 	const currentDirContent = $derived(
-		data.directoryContent.filter((page) => {
-			return page.directory === data.currentDirectory.name;
+		isContentPage ? [] : (data.directoryContent || []).filter((page) => {
+			return page.directory === data.currentDirectory?.name;
 		})
 	);
 
 	const subDirContent = $derived(
-		data.directoryContent.filter((page) => {
+		isContentPage ? [] : (data.directoryContent || []).filter((page) => {
 			return (
-				page.directory !== data.currentDirectory.name &&
-				page.directory.startsWith(data.currentDirectory.name + '/')
+				page.directory !== data.currentDirectory?.name &&
+				page.directory?.startsWith(data.currentDirectory?.name + '/')
 			);
 		})
 	);
@@ -35,11 +44,62 @@
 </script>
 
 <svelte:head>
-	<title>{data.currentDirectory.title}</title>
-	<meta name="description" content="{data.currentDirectory.title} page - Created by Statue SSG" />
+	<title>{hasNamingConflict ? 'Configuration Error' : (isContentPage ? data.content.metadata.title : (data.currentDirectory?.title || ''))}</title>
+	<meta name="description" content="{hasNamingConflict ? 'Naming conflict detected' : (isContentPage ? data.content.metadata.description : (data.currentDirectory?.title || '') + ' page - Created by Statue SSG')}" />
 </svelte:head>
 
-{#if isDocsDirectory}
+{#if hasNamingConflict}
+	<!-- Naming conflict error page -->
+	<div class="min-h-screen text-white bg-linear-to-b from-(--color-hero-from) via-(--color-hero-via) to-(--color-hero-to)">
+		<div class="container mx-auto px-4 py-16">
+			<div class="max-w-3xl mx-auto">
+				<div class="bg-red-900/30 border-2 border-red-600/50 rounded-lg p-8">
+					<h1 class="text-3xl font-bold mb-4 text-red-200">⚠️ Configuration Error</h1>
+					<p class="text-lg text-red-100 mb-6">
+						Multiple items found for this path. Please check your content directory:
+					</p>
+
+					<div class="bg-black/30 p-4 rounded mb-6 font-mono text-sm">
+						<div class="text-yellow-200 mb-2">Directory:</div>
+						<div class="text-white ml-4 mb-4">• {data.conflictData.directory}</div>
+
+						<div class="text-yellow-200 mb-2">Files:</div>
+						{#each data.conflictData.files as file}
+							<div class="text-white ml-4">• {file}</div>
+						{/each}
+					</div>
+
+					<p class="text-red-100 mb-4">
+						<strong>To fix this:</strong> Rename one of these items to resolve the conflict.
+					</p>
+
+					<p class="text-sm text-red-200">
+						Check your terminal/console for detailed warnings about this conflict.
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+{:else if isContentPage}
+	<!-- This is actually a content file, not a directory - render it like [...slug] does -->
+	<div
+		class="min-h-screen text-white bg-linear-to-b from-(--color-hero-from) via-(--color-hero-via) to-(--color-hero-to)"
+	>
+		<div class="container mx-auto px-4 py-16">
+			<div class="max-w-6xl mx-auto">
+				<ContentHeader
+					title={data.content.metadata.title}
+					date={data.content.metadata.date}
+					author={data.content.metadata.author}
+					backLink="/"
+					backLinkText="Home"
+				/>
+
+				<ContentBody content={data.content.content} />
+			</div>
+		</div>
+	</div>
+{:else if isDocsDirectory}
 	<DocsLayout
 		sidebarItems={data.sidebarItems || []}
 		activePath="/docs"

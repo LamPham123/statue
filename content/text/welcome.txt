@@ -1,0 +1,22 @@
+Welcome to Plain Text Content
+
+This is a demonstration of native .txt file support in Statue SSG. Unlike markdown files, this content is written in pure plain text format with no special syntax or formatting required.
+
+The beauty of plain text is its simplicity. What you write is what you get. No need to learn markdown syntax, no need to worry about escaping special characters (well, mostly).
+
+Multiple Paragraphs
+
+Each section separated by a blank line becomes its own paragraph. This makes it easy to structure your content naturally, just like you would write in a text editor.
+
+You can write technical documentation, blog posts, or any other content type using plain text files. They work seamlessly with all of Statue's existing layouts and features.
+
+Why Use Plain Text?
+
+Sometimes you just want to write without thinking about formatting. Plain text files are perfect for:
+
+- Quick notes and documentation
+- Terminal output or logs
+- Legacy content migration
+- Simple, distraction-free writing
+
+The system automatically converts your plain text into properly styled HTML that matches your site's theme and design.

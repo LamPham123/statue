@@ -1,4 +1,5 @@
-import { getContentDirectories, getContentByDirectory, getSubDirectories, getSidebarTree, isGalleryDirectory, getGalleryData } from 'statue-ssg/cms/content-processor';
+import { getContentDirectories, getContentByDirectory, getSubDirectories, getSidebarTree, isGalleryDirectory, getGalleryData, getContentByUrl, detectNamingConflicts } from 'statue-ssg/cms/content-processor';
+import { error } from '@sveltejs/kit';
 
 // Make this page prerendered as a static page
 export const prerender = true;
@@ -10,6 +11,41 @@ export async function load({ params }) {
 
   // Get all directories
   const directories = getContentDirectories();
+
+  // Check for naming conflicts
+  const conflicts = await detectNamingConflicts();
+  const hasConflict = conflicts.find(c => c.name === directoryName);
+
+  // If this directory has a naming conflict, show error page
+  if (hasConflict) {
+    return {
+      hasNamingConflict: true,
+      conflictData: hasConflict,
+      directories
+    };
+  }
+
+  // Check if this is an actual directory
+  const isActualDirectory = directories.some(dir => dir.name === directoryName);
+
+  if (isActualDirectory) {
+    // This IS a real directory - render directory listing
+    // Continue to directory handling below...
+  } else {
+    // NOT a directory - show the content file
+    const allContent = await getContentByUrl(`/${directoryName}`);
+
+    if (allContent) {
+      console.log(`📄 Rendering content file: ${allContent.path}`);
+
+      const sidebarItems = allContent.directory?.startsWith('docs') ? await getSidebarTree('docs') : [];
+      return {
+        content: allContent,
+        directories,
+        sidebarItems
+      };
+    }
+  }
 
   // Check if this is a gallery directory
   const isGallery = isGalleryDirectory(directoryName);

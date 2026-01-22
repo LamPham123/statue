@@ -26,7 +26,7 @@ export const siteConfig = {
     ],
 
     // Hide these directories from navbar (by folder name content/foldername)
-    hiddenFromNav: ['legal']
+    hiddenFromNav: ['']
   },
 
   // Contact information

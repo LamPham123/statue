@@ -1,0 +1,61 @@
+Plain Text Content Policy
+
+Effective Date: January 21, 2025
+
+Introduction
+
+This policy governs the use of plain text (.txt) files within the Statue static site generator. By using plain text content features, you agree to the terms outlined in this document.
+
+Acceptable Use
+
+Plain text files may be used for any lawful purpose including but not limited to:
+- Technical documentation
+- Blog posts and articles
+- Legal documents and policies
+- Educational content
+- Personal notes and journals
+
+Content Ownership
+
+You retain full ownership of all content you create in plain text files. Statue SSG processes your files to generate static websites but does not claim any rights to your content.
+
+Processing and Storage
+
+Plain text files are processed during the build phase to generate HTML output. The original .txt files remain unchanged. Processing includes:
+- Converting text to HTML paragraphs
+- Escaping special characters
+- Applying site-wide styling
+- Generating navigation and routing
+
+Security Considerations
+
+To prevent security vulnerabilities, all plain text content is sanitized during processing. HTML characters are escaped to prevent injection attacks. Users should not attempt to circumvent these security measures.
+
+Privacy
+
+Plain text files are processed locally during site builds. No content is transmitted to external servers during the build process unless you explicitly deploy your site to a hosting service.
+
+Hosting your generated site is your responsibility. Statue itself does not host, store, or have access to your content.
+
+Limitations
+
+Plain text files do not support:
+- Frontmatter metadata (title is derived from filename)
+- Markdown formatting syntax
+- HTML tags (they will be escaped)
+- Image embedding
+- Custom styling per file
+
+These limitations are intentional to maintain the simplicity and security of plain text processing.
+
+Modifications to Policy
+
+We reserve the right to modify this policy at any time. Continued use of plain text features after changes constitutes acceptance of the modified policy.
+
+Contact Information
+
+For questions about this policy, please refer to the project documentation or open an issue on the GitHub repository.
+
+Disclaimer
+
+Plain text processing is provided "as is" without warranty of any kind, express or implied. Use of this feature is at your own risk.

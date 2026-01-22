@@ -1,0 +1,42 @@
+Command Line Interface Guide
+
+This guide covers the essential commands for working with Statue SSG from the command line.
+
+Getting Started
+
+To initialize a new Statue project, use the init command:
+npx statue init --template default
+
+This will create a new project with the default template structure including all necessary configuration files.
+
+Development Server
+
+Start the development server to preview your site locally:
+npm run dev
+
+The server will start on http://localhost:5173 by default. Changes to your content files will be reflected automatically.
+
+Building for Production
+
+To create a production-ready build of your site:
+npm run build
+
+This generates static HTML files in the build/ directory that can be deployed to any static hosting service.
+
+Common Workflows
+
+For a typical content update workflow:
+1. Edit or create content files in the content/ directory
+2. Preview changes with npm run dev
+3. Build the site with npm run build
+4. Deploy the build/ directory to your hosting service
+
+Configuration
+
+Site-wide settings are managed in site.config.js at the root of your project. This includes site name, description, contact information, and social media links.
+
+Troubleshooting
+
+If you encounter issues during build, try clearing the node_modules directory and reinstalling dependencies with npm install.
+
+For more detailed information, visit the official documentation at https://statue.dev/docs/

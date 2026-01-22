@@ -32,6 +32,7 @@
 
 <NavigationBar
 	navbarItems={data.globalDirectories}
+	rootContent={data.rootContent ?? []}
 	showSearch={data.searchConfig?.enabled ?? false}
 	searchPlaceholder={data.searchConfig?.placeholder ?? 'Search...'}
 	siteTitle={navbarConfig?.siteTitle ?? null}
